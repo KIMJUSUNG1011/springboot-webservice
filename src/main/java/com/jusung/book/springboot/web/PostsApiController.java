@@ -1,6 +1,9 @@
-package com.jusung.book.springboot.web.dto;
+package com.jusung.book.springboot.web;
 
 import com.jusung.book.springboot.service.posts.PostsService;
+import com.jusung.book.springboot.web.dto.PostsResponseDto;
+import com.jusung.book.springboot.web.dto.PostsSaveRequestDto;
+import com.jusung.book.springboot.web.dto.PostsUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +20,17 @@ public class PostsApiController {
 
     @PutMapping("/api/v1/posts/{id}")
     public Long update(@PathVariable Long id, @RequestBody PostsUpdateRequestDto requestDto) {
-        System.out.println("checked");
         return postsService.update(id, requestDto);
     }
 
     @GetMapping("/api/v1/posts/{id}")
     public PostsResponseDto findById(@PathVariable Long id) {
         return postsService.findById(id);
+    }
+
+    @DeleteMapping("/api/v1/posts/{id}")
+    public Long delete(@PathVariable Long id) {
+        postsService.delete(id);
+        return id;
     }
 }
